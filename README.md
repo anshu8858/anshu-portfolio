@@ -1,5 +1,4 @@
 # Anshu Kushwaha — Platform Architect & SRE Portfolio
-### Obsidian Telemetry // Production Architectures & Cloud-Native Systems
 
 [![Deploy to GitHub Pages](https://github.com/kushawahaanshu8858/anshu-portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/kushawahaanshu8858/anshu-portfolio/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](https://opensource.org/licenses/MIT)
@@ -8,7 +7,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38bdf8.svg)](https://tailwindcss.com/)
 [![Vite](https://img.shields.io/badge/Vite-8.x-646cff.svg)](https://vitejs.dev/)
 
-> **Live Portfolio:** [https://kushawahaanshu8858.github.io/anshu-portfolio/](https://kushawahaanshu8858.github.io/anshu-portfolio/)
+> **Live Portfolio:** [https://anshu8858.github.io/anshu-portfolio/](https://anshu8858.github.io/anshu-portfolio/)
 
 ---
 
