@@ -1,0 +1,34 @@
+# Anshu Kushwaha — Full-Stack Engineer & Cloud Architect
+
+## Summary
+Anshu Kushwaha is a full-stack software engineer and cloud architect with 9+ years of continuous experience at Quancore Softech (Sep 2015 – Present). He builds production-grade web platforms, Kubernetes infrastructure, and distributed systems.
+
+## Core Skills
+- Languages: Python (FastAPI, Celery), Node.js (TypeScript, Express), PHP (Laravel, Bagisto), Go (Golang)
+- Frontend: React, Vue.js, Tailwind CSS, Angular
+- Infrastructure: Kubernetes (EKS/GKE), Docker, Terraform, ArgoCD, CI/CD Pipelines
+- Cloud: AWS (EKS, S3, RDS, IAM), GCP (GKE, Cloud Run, Artifact Registry), Hostinger
+- Databases: PostgreSQL, MySQL, Redis, Apache Kafka, Elasticsearch
+- Observability: Prometheus, Grafana, OpenTelemetry, Istio Service Mesh
+- Specialties: WebRTC, GPU Workload Scheduling, Multi-Tenant Architecture, Event-Driven Systems
+
+## Key Projects
+1. Dzicard (dzicard.com) — Digital card and poster generation engine processing 500,000+ cards with <850ms render latency
+2. Expoburg (expoburg.com) — B2B virtual trade exhibition platform supporting 12,000+ concurrent users with real-time WebRTC conferencing
+3. NuHire (developer.nuhire.in) — Kubernetes platform with GPU-aware scheduling, DMZ isolation, and 74% image pull time reduction
+4. Infizero (infizero.com) — Multi-tenant ERP system with equipment rental management, dynamic forms, and QR asset tracking
+5. MyVapi (myvapi.com) — Hyperlocal city portal and B2B business directory with 100+ categories and 94.2% cache ratio
+6. Enterprise Storefronts & Telegram Bots — Bagisto/Magento commerce platforms with automated Telegram bot systems (91% auto-resolution)
+
+## Career Timeline
+- 2021–Present: Platform & DevOps Lead, Core Cloud Architect at Quancore Softech
+- 2018–2021: Senior Full-Stack & Systems Engineer at Quancore Softech
+- 2015–2018: Full-Stack Developer at Quancore Softech
+
+## Contact
+- Website: https://anshu.kushawaha.com
+- Email: kushawahaanshu8858@gmail.com
+- Location: Vapi, Gujarat, India
+- Organization: Quancore Softech (quancoresoftech.com)
+- GitHub: github.com
+- LinkedIn: linkedin.com

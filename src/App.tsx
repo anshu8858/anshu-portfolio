@@ -1,128 +1,83 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import React, { useState } from 'react';
-import { NavTab, ProfileMode, CaseStudy, PipelineStage } from './types';
+import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
-import { TelemetryBar } from './components/TelemetryBar';
-import { OverviewView } from './components/OverviewView';
-import { ProjectsView } from './components/ProjectsView';
-import { StackView } from './components/StackView';
-import { ExperienceView } from './components/ExperienceView';
-import { TerminalContactView } from './components/TerminalContactView';
-import { ManifestModal } from './components/ManifestModal';
-import { PipelineLogModal } from './components/PipelineLogModal';
-import { ResumeModal } from './components/ResumeModal';
-import { ContactModal } from './components/ContactModal';
+import { About } from './components/About';
+import { Experience } from './components/Experience';
+import { Projects } from './components/Projects';
+import { TechStack } from './components/TechStack';
+import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState<NavTab>('overview');
-  // Default to 'anshu' which matches the user's name & email, with 1-click toggle to 'sysarch'
-  const [profileMode, setProfileMode] = useState<ProfileMode>('anshu');
+  const [mousePosition, setMousePosition] = useState({ x: -1000, y: -1000 });
+  const [activeSection, setActiveSection] = useState('about');
 
-  const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
-  const [selectedPipelineStage, setSelectedPipelineStage] = useState<PipelineStage | null>(null);
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [isContactOpen, setIsContactOpen] = useState(false);
+  // Mouse spotlight glow tracker
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
 
-  const handleProfileModeToggle = () => {
-    setProfileMode((prev) => (prev === 'anshu' ? 'sysarch' : 'anshu'));
-  };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // IntersectionObserver for active section tracking
+  useEffect(() => {
+    const sectionIds = ['about', 'experience', 'projects', 'stack', 'contact'];
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          });
+        },
+        {
+          rootMargin: '-20% 0px -65% 0px',
+          threshold: 0,
+        }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((obs) => obs.disconnect());
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#090D16] text-[#F1F5F9] flex flex-col font-sans selection:bg-[#10B981]/20 selection:text-[#10B981] bg-blueprint-subtle">
-      
-      {/* Top 3-Zone Header */}
-      <Header
-        currentTab={currentTab}
-        onTabChange={(tab) => {
-          setCurrentTab(tab);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+    <div className="relative min-h-screen bg-[#0a0a0c] text-zinc-300 antialiased selection:bg-emerald-400/20 selection:text-emerald-300">
+      {/* Interactive mouse spotlight glow on desktop */}
+      <div
+        className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300 hidden lg:block"
+        style={{
+          background: `radial-gradient(650px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(16, 185, 129, 0.07), transparent 80%)`,
         }}
-        profileMode={profileMode}
-        onProfileModeToggle={handleProfileModeToggle}
-        onOpenResume={() => setIsResumeOpen(true)}
       />
 
-      {/* Live Operational Telemetry Bar */}
-      <TelemetryBar profileMode={profileMode} />
+      {/* Main 2-column balanced container */}
+      <div className="mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-20 lg:px-24 lg:py-0">
+        <div className="lg:flex lg:justify-between lg:gap-4">
+          {/* Left Column: Sticky Header / Nav / Social (48% width) */}
+          <Header activeSection={activeSection} />
 
-      {/* Main Viewport Container */}
-      <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8">
-        {currentTab === 'overview' && (
-          <OverviewView
-            profileMode={profileMode}
-            onNavigateTab={(tab) => {
-              setCurrentTab(tab);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            onOpenResume={() => setIsResumeOpen(true)}
-            onOpenContact={() => setIsContactOpen(true)}
-            onSelectPipelineStage={(stage) => setSelectedPipelineStage(stage)}
-            onSelectCaseStudy={(study) => setSelectedCaseStudy(study)}
-          />
-        )}
-
-        {currentTab === 'projects' && (
-          <ProjectsView
-            profileMode={profileMode}
-            onSelectCaseStudy={(study) => setSelectedCaseStudy(study)}
-            onOpenContact={() => setIsContactOpen(true)}
-          />
-        )}
-
-        {currentTab === 'stack' && (
-          <StackView
-            profileMode={profileMode}
-            onOpenContact={() => setIsContactOpen(true)}
-          />
-        )}
-
-        {currentTab === 'experience' && (
-          <ExperienceView
-            profileMode={profileMode}
-            onOpenResume={() => setIsResumeOpen(true)}
-            onOpenContact={() => setIsContactOpen(true)}
-          />
-        )}
-
-        {currentTab === 'terminal' && (
-          <TerminalContactView
-            profileMode={profileMode}
-            onOpenContactModal={() => setIsContactOpen(true)}
-          />
-        )}
-      </main>
-
-      {/* Persistent System Footer */}
-      <Footer profileMode={profileMode} />
-
-      {/* Modals & Slide-overs */}
-      <ManifestModal
-        caseStudy={selectedCaseStudy}
-        onClose={() => setSelectedCaseStudy(null)}
-      />
-
-      <PipelineLogModal
-        stage={selectedPipelineStage}
-        onClose={() => setSelectedPipelineStage(null)}
-      />
-
-      <ResumeModal
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-        profileMode={profileMode}
-      />
-
-      <ContactModal
-        isOpen={isContactOpen}
-        onClose={() => setIsContactOpen(false)}
-        profileMode={profileMode}
-      />
-
+          {/* Right Column: Scrollable Content Stream (52% width) */}
+          <main id="content" className="pt-24 lg:w-1/2 lg:py-24 space-y-24">
+            <About />
+            <Experience />
+            <Projects />
+            <TechStack />
+            <Contact />
+            <Footer />
+          </main>
+        </div>
+      </div>
     </div>
   );
 }

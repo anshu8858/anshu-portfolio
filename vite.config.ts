@@ -5,13 +5,13 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: '/anshu-portfolio/',
+    base: '/',
 
     plugins: [react(), tailwindcss()],
 
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(import.meta.dirname, '.'),
       },
     },
 
